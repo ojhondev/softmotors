@@ -101,6 +101,8 @@ export const vehicles = pgTable(
       .notNull()
       .references(() => tenants.id, { onDelete: "cascade" }),
     unitId: uuid("unit_id").references(() => units.id, { onDelete: "set null" }),
+    /** Slug único por tenant para a URL da VDP (marca-modelo-versao-ano-hash). */
+    slug: text("slug").notNull(),
     /** Código do veículo no ERP/DMS de origem, quando houver. */
     externalId: text("external_id"),
     condition: vehicleConditionEnum("condition").notNull().default("used"),
@@ -133,6 +135,7 @@ export const vehicles = pgTable(
   },
   (t) => [
     uniqueIndex("vehicles_tenant_external_uq").on(t.tenantId, t.externalId),
+    uniqueIndex("vehicles_tenant_slug_uq").on(t.tenantId, t.slug),
   ],
 );
 

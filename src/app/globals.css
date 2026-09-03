@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
+/*
+ * Tokens do preset "Clean" (slate + vermelho), derivados do canvas de design.
+ * Valores PADRÃO do template — cada tenant pode sobrescrever --accent, --bg,
+ * --radius-card etc. injetando um <style> a partir de tenant.theme (src/lib/theme.ts).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #0f172a;
+  --ink-muted: #667085;
+  --ink-subtle: #94a3b8;
+  --line: #e5e8ec;
+  --line-strong: #d0d7de;
+
+  --accent: #dc2626;
+  --accent-hover: #b91c1c;
+  --accent-weak: #fef2f2;
+
+  --success: #15803d;
+  --success-weak: #dcfce7;
+  --wa: #12b76a;
+
+  --radius-card: 14px;
+  --radius-input: 9px;
+
+  --font-display-stack: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-sans-stack: var(--font-public-sans), system-ui, -apple-system, sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 18px 40px -28px rgba(15, 23, 42, 0.18);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-weak: var(--accent-weak);
+  --color-success: var(--success);
+  --color-success-weak: var(--success-weak);
+  --color-wa: var(--wa);
+
+  --font-sans: var(--font-sans-stack);
+  --font-display: var(--font-display-stack);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans-stack);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display-stack);
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+.wrap {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding-inline: 16px;
+  }
 }

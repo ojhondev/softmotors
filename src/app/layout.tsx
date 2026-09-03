@@ -1,21 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Public_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "SoftMotors — plataformas white label para concessionárias",
+  title: {
+    default: "softmotors — seminovos com procedência em Maringá e região",
+    template: "%s | softmotors",
+  },
   description:
-    "Software e plataformas white label para concessionárias multimarcas e revendas. O site e a plataforma de vendas da sua loja — não ERP, não CRM.",
+    "Seminovos com procedência selecionada. Compare, simule o financiamento, avalie seu usado na troca e fale direto com a loja.",
 };
 
 export default function RootLayout({
@@ -25,9 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-      </body>
+      <body className={`${archivo.variable} ${publicSans.variable}`}>{children}</body>
     </html>
   );
 }
