@@ -9,13 +9,13 @@ import { money, moneyCents, km, yearPair } from "@/lib/format";
 import { waLink } from "@/lib/whatsapp";
 import { VehicleCard } from "@/components/store/vehicle-card";
 import { Gallery } from "@/components/store/gallery";
+import { FavoriteButton } from "@/components/store/favorite-button";
 import { LeadForm } from "@/components/store/lead-form";
 import { FinanceSimulator } from "@/components/store/finance-simulator";
 import { Card, Label } from "@/components/store/ui";
 import {
   Check,
   Flag,
-  Heart,
   Tag,
   Video,
   Whatsapp,
@@ -101,7 +101,7 @@ export default async function VehiclePage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Gallery seed={v.id} photoCount={Math.max(v.photos.length, 24)} />
+      <Gallery seed={v.id} slug={v.slug} photoCount={Math.max(v.photos.length, 24)} />
 
       <div className="wrap grid items-start gap-10 py-7 lg:grid-cols-[minmax(0,1fr)_384px]">
         {/* MAIN */}
@@ -132,9 +132,7 @@ export default async function VehiclePage({ params }: { params: Params }) {
                 <Check size={14} />
                 Vendedor responde rápido
               </span>
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink">
-                <Heart size={18} />
-              </span>
+              <FavoriteButton slug={v.slug} size={18} variant="bare" className="h-10 w-10" />
             </div>
 
             <div className="mt-5 border-t border-[#EEF1F4] pt-5">

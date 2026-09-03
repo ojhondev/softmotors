@@ -1,7 +1,16 @@
 import { VehiclePhoto } from "@/components/store/vehicle-photo";
-import { ChevronLeft, ChevronRight, Heart, Rotate3d } from "@/components/store/icons";
+import { ChevronLeft, ChevronRight, Rotate3d } from "@/components/store/icons";
+import { FavoriteButton } from "@/components/store/favorite-button";
 
-export function Gallery({ seed, photoCount }: { seed: string; photoCount: number }) {
+export function Gallery({
+  seed,
+  slug,
+  photoCount,
+}: {
+  seed: string;
+  slug: string;
+  photoCount: number;
+}) {
   return (
     <div className="relative overflow-hidden bg-ink">
       <div
@@ -24,9 +33,7 @@ export function Gallery({ seed, photoCount }: { seed: string; photoCount: number
         </div>
         <div className="relative hidden sm:block">
           <VehiclePhoto seed={`${seed}-c`} className="h-full w-full" />
-          <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-ink">
-            <Heart size={16} />
-          </span>
+          <FavoriteButton slug={slug} size={16} className="absolute right-4 top-4 h-9 w-9" />
           <span className="absolute bottom-4 right-4 rounded-full bg-ink/70 px-3 py-1.5 text-xs text-white">
             1 / {photoCount} fotos
           </span>

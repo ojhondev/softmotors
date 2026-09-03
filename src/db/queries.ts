@@ -5,6 +5,7 @@ import {
   eq,
   gte,
   ilike,
+  inArray,
   lte,
   ne,
   or,
@@ -126,6 +127,23 @@ export async function getVehicleBySlug(tenantId: string, slug: string) {
     .where(and(eq(vehicles.tenantId, tenantId), eq(vehicles.slug, slug)))
     .limit(1);
   return rows[0] ?? null;
+}
+
+export async function getVehiclesBySlugs(tenantId: string, slugs: string[]) {
+  if (slugs.length === 0) return [];
+  const rows = await db
+    .select()
+    .from(vehicles)
+    .where(
+      and(
+        eq(vehicles.tenantId, tenantId),
+        eq(vehicles.status, "published"),
+        inArray(vehicles.slug, slugs.slice(0, 60)),
+      ),
+    );
+  // preserva a ordem em que o usuário favoritou
+  const order = new Map(slugs.map((s, i) => [s, i]));
+  return rows.sort((a, b) => (order.get(a.slug) ?? 0) - (order.get(b.slug) ?? 0));
 }
 
 export async function getSimilarVehicles(
