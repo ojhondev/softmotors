@@ -34,8 +34,20 @@ integrador e entrega leads para o CRM do cliente.
   `npx vercel@latest env pull .env.local`.
 - Build de produção + lint antes de commitar.
 
-## Git & deploy
+## Git: commit, push e deploy automáticos
 
-Provisionado seguindo `C:\Users\55149\dev.md`. Push para `origin/main` e, após cada push,
-`npx vercel@latest --prod` (não confiar só no auto-deploy nativo). Commits em português,
-no imperativo.
+Toda alteração de código feita neste projeto (nesta ou em sessões futuras) deve ser
+commitada, enviada para o GitHub (`origin/main`) e publicada em produção
+automaticamente, sem esperar autorização explícita a cada vez — isso já foi autorizado
+pelo usuário.
+
+Fluxo padrão ao concluir uma tarefa que altere código:
+1. Rodar typecheck/build normalmente.
+2. `git add -A`
+3. `git commit -m "<mensagem descrevendo a mudança>"` (português, imperativo)
+4. `git push origin main`
+5. `npx vercel@latest --prod` — **obrigatório**, não presumir que o push sozinho
+   publica a mudança (o auto-deploy nativo da Vercel já falhou silenciosamente neste
+   tipo de projeto antes; ver `C:\Users\55149\dev.md` para o histórico).
+
+Migrations pendentes (`npm run db:migrate`) são aplicadas no banco de destino nesta etapa.
